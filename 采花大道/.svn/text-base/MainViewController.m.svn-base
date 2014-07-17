@@ -1,0 +1,74 @@
+//
+//  MainViewController.m
+//  CenterButtonTest
+//
+//  Created by sigboat on 14-4-14.
+//  Copyright (c) 2014年 sigboat. All rights reserved.
+//
+
+#import "MainViewController.h"
+#import "FirstViewController.h"
+#import "MyRoadViewController.h"
+
+@interface MainViewController ()
+{
+    FirstViewController *firstVC;
+    MyRoadViewController *myRoadVC;
+}
+
+@end
+
+@implementation MainViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [self initView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+}
+
+- (void)initView
+{
+    [self addCenterButtonWithImage:[UIImage imageNamed:@"icon_logo03.png"] highlightImage:[UIImage imageNamed:@"tabBar_cameraButton_ready_matte.png"]];
+    
+//    if ([[UIScreen mainScreen] bounds].size.height == 480) {
+        firstVC = [[FirstViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+        
+        myRoadVC = [[MyRoadViewController alloc] initWithNibName:@"MyRoadViewController" bundle:nil];
+//    }else
+//    {
+//        firstVC = [[FirstViewController alloc] initWithNibName:@"MainViewController_five" bundle:nil];
+//        
+//        myRoadVC = [[MyRoadViewController alloc] initWithNibName:@"MyRoadViewController_five" bundle:nil];
+//    }
+    UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    UINavigationController *myRoadNav = [[UINavigationController alloc] initWithRootViewController:myRoadVC];
+    
+    self.viewControllers = [NSArray arrayWithObjects:
+                            [self viewController:firstNav WithTabTitle:@"主页" image:[UIImage imageNamed:@"btn_menu01_default.png"]],
+                            [self viewController:myRoadNav WithTabTitle:@"我的大道" image:[UIImage imageNamed:@"btn_menu03_default.png"]], nil];
+    
+    [myRoadVC.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"btn_menu03_default.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"btn_menu03_enter.png"]];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end
